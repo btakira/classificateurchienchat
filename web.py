@@ -1,3 +1,8 @@
+import subprocess
+
+# Installer les bibliothèques depuis requirements.txt
+subprocess.run(["pip", "install", "-r", "requirements.txt"])
+
 import streamlit as st
 from PIL import Image
 import tensorflow as tf
