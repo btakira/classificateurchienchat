@@ -6,7 +6,19 @@ import requests
 from io import BytesIO
 
 # === Charger le modèle ===
-model = tf.keras.models.load_model("chat_vs_chien_model.h5")
+MODEL_URL = "https://drive.google.com/file/d/1D0zSzVpd31I_Gcz5_FYkUG9FkkK87ktx/view?usp=drive_link"
+
+
+@st.cache_resource
+def load_model():
+    if not os.path.exists(MODEL_PATH):
+        with st.spinner("Téléchargement du modèle..."):
+            r = requests.get(MODEL_URL)
+            with open(MODEL_PATH, 'wb') as f:
+                f.write(r.content)
+    return tf.keras.models.load_model(MODEL_PATH)
+
+model = load_model()
 
 # === Fonction de prédiction ===
 def predict(image):
