@@ -9,10 +9,11 @@ import tensorflow as tf
 import numpy as np
 import requests
 from io import BytesIO
+import os
 
 # === Charger le modèle ===
 MODEL_URL = "https://drive.google.com/file/d/1D0zSzVpd31I_Gcz5_FYkUG9FkkK87ktx/view?usp=drive_link"
-
+MODEL_PATH = "chat_vs_chien_model.h5"
 
 @st.cache_resource
 def load_model():
