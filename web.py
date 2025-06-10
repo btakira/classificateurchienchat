@@ -12,6 +12,8 @@ from io import BytesIO
 import os
 import gdown
 
+st.set_page_config(page_title="Classificateur Chat vs Chien 🐾", layout="centered")
+
 # === Définir le chemin et le lien du modèle Google Drive ===
 MODEL_ID = "1D0zSzVpd31I_Gcz5_FYkUG9FkkK87ktx"
 MODEL_URL = f"https://drive.google.com/uc?id={MODEL_ID}"
@@ -37,7 +39,6 @@ def predict(image):
     return label, confidence * 100
 
 # === Interface utilisateur ===
-st.set_page_config(page_title="Classificateur Chat vs Chien 🐾", layout="centered")
 st.title("🐾 Classificateur Chat vs Chien")
 
 # Onglets pour différentes options
