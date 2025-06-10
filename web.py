@@ -10,21 +10,22 @@ import numpy as np
 import requests
 from io import BytesIO
 import os
+import gdown
 
-# === Charger le modèle ===
-MODEL_URL = "https://drive.google.com/file/d/1D0zSzVpd31I_Gcz5_FYkUG9FkkK87ktx/view?usp=drive_link"
+# === Définir le chemin et le lien du modèle Google Drive ===
+MODEL_ID = "1D0zSzVpd31I_Gcz5_FYkUG9FkkK87ktx"
+MODEL_URL = f"https://drive.google.com/uc?id={MODEL_ID}"
+MODEL_PATH = "chat_vs_chien_model.h5"
 
+# === Chargement du modèle avec cache ===
 @st.cache_resource
 def load_model():
     if not os.path.exists(MODEL_PATH):
-        with st.spinner("Téléchargement du modèle..."):
-            r = requests.get(MODEL_URL)
-            with open(MODEL_PATH, 'wb') as f:
-                f.write(r.content)
+        with st.spinner("📥 Téléchargement du modèle..."):
+            gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
     return tf.keras.models.load_model(MODEL_PATH)
 
 model = load_model()
-
 # === Fonction de prédiction ===
 def predict(image):
     img = image.resize((150, 150))
