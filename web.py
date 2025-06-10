@@ -1,37 +1,7 @@
-import os
 import subprocess
-import sys
-import shutil
 
-# Nom de l'environnement
-env_name = "venv38"
-
-# === Étape 1 : Vérifier si Python 3.8 est disponible ===
-print("🔍 Vérification de Python 3.8 ...")
-try:
-    version_output = subprocess.check_output(["py", "-3.8", "--version"], stderr=subprocess.STDOUT)
-    print("✅ Python 3.8 est disponible :", version_output.decode().strip())
-except subprocess.CalledProcessError:
-    print("❌ Python 3.8 n'est pas installé ou non détecté par la commande py -3.8.")
-    sys.exit(1)
-
-# === Étape 2 : Créer l'environnement virtuel ===
-if os.path.exists(env_name):
-    print(f"ℹ Environnement {env_name} existe déjà. Suppression pour recréer proprement...")
-    shutil.rmtree(env_name)
-
-print(f"⚙ Création de l'environnement virtuel '{env_name}' avec Python 3.8...")
-subprocess.run(["py", "-3.8", "-m", "venv", env_name], check=True)
-
-# === Étape 3 : Activer l'environnement ===
-activate_path = os.path.join(env_name, "Scripts", "activate")
-print(f"✅ Environnement créé. Pour l'activer manuellement, exécutez dans PowerShell :\n\n    .\\{activate_path}\n")
-
-# === Étape 4 : Installer les dépendances ===
-pip_path = os.path.join(env_name, "Scripts", "pip.exe")
-print("📥 Installation des dépendances...")
-subprocess.run([pip_path, "install", "-r", "requirements.txt"], check=True)
-print("✅ Dépendances installées avec succès !")
+# Installer les bibliothèques depuis requirements.txt
+subprocess.run(["pip", "install", "-r", "requirements.txt"])
 
 import streamlit as st
 from PIL import Image
